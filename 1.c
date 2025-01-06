@@ -1,36 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+int main(void) {
+	FILE *file;
+	char line[1000];
+	int sum = 0;
+	int i = 1;
+	int distance;
 
-
-int main(void){
-	/* Essentially calculates the difference between two arrays of an array in absolute value */	
-
-	int arr[2][6] = {
-		{3,4,2,1,3,3},
-		{4,3,5,3,9,3}
+	struct ab{
+		int a;
+		int b;
 	};
 
-
-
-/*	int a = abs(1); */
-	size_t n = sizeof(arr) / sizeof(arr[0]);
-
-	int a[] = {};
-	int i, j, k;
-
-	printf("Distance: \n");
-
-	/* output each array element's value */
-	for ( i = 0; i < 6; i++ ) {
-		*(a+i) = abs(arr[0][i] - arr[1][i]);
-		/*for ( j = 0; j < 2; j++ ) {
-			printf("a[%d][%d] = %d\n", j,i, arr[j][i] );
-		} */
-	printf("[%d]", a[i]);
-	}
+	struct ab list[sizeof(line)];
 	
-	printf("\n");
+
+	file = fopen("1_input.txt", "r");
+
+	if (file == NULL) {
+		printf("Error opening file %s \n", file);
+		return 1;
+	}
+
+	while (fgets(line, sizeof(line), file) 	!= NULL) {
+		list[i].a = atoi(strtok(line, " ")); 
+		list[i].b = atoi(strtok(NULL, "\n"));
+		distance = abs(list[i].a - list[i].b);
+		sum += distance;
+		printf("# %d, a %d b %d, distance %d, sum  %d \n",i,list[i].a,list[i].b,distance, sum);
+		i++;
+		/* printf("%d \n",i); */
+
+	}	
+	
+	fclose(file);
+
+	printf("\n ANSWER: %d \n", sum);
+
+
 
 	return 0;
-}    
+}
