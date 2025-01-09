@@ -1,3 +1,5 @@
-Advent of Code 2024.
+[Advent of Code 2024](https://adventofcode.com/2024)/)
 
-This time I figured I'd like to do it in C.
+Why not engage in fun coding challenges?
+
+This time I figured I'd like to do it in **C**!
