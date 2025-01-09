@@ -35,16 +35,16 @@ int main(void) {
 
 
 	for (i = 1; i <= sizeof(line); i++) {
-
 		for (j = 1; j <= sizeof(line); j++) {
-			for (k = 1; k <= sizeof(line); k++ ) {
+			if (list[i].a == list[j].b) {
+				similarity_score += list[i].a;
+			}
 			
-
+			for (k = 1; k <= sizeof(line); k++ ) {
 			}
 		}
-
-		similarity_score;
 		sum += similarity_score;
+		similarity_score = 0;
 	}
 
 
