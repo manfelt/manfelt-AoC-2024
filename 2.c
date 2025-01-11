@@ -35,7 +35,6 @@ int main(void) {
 		
 	}
 
-
 	f = fopen("2_input.txt", "r");
 
 	if (f == NULL) {
