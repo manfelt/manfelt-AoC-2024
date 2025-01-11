@@ -18,6 +18,23 @@ int main(void) {
 
 	struct ab list[SIZE];
 
+	/* dynamic array */
+	typedef struct {
+		int *array;
+		size_t used;
+		size_t size;
+	} Array;
+
+	void initArray(Array *a, size_t initialSize) {
+		a->array = malloc(initialSize * sizeof(int));
+		a->used = 0;
+		a->size = initialSize;		
+	}
+
+	void insertArray(Array *a, int element) {
+		
+	}
+
 
 	f = fopen("2_input.txt", "r");
 
@@ -27,11 +44,13 @@ int main(void) {
 	}
 
 
-	while (fgets(line, SIZE, f) != NULL) {
-		list[i].a = i; /* atoi(strtok(line, "\n")); */
-		list[i].b = i; /* atoi(strtok(NULL, "\n")); */
+	while (fgets(line, SIZE, f) != NULL && i <= 4) {
+		list[i].a = atoi(strtok(line, " ")); 
+		list[i].b = atoi(strtok(NULL, " "));
+		if(list[i].b != NULL) {printf("%d \n",list[i].b);} 
 		i++;
-		printf("%d \n",list[i].a);
+		/*printf("%d \n", list[i].a);*/
+		/* printf("%s \n",line);*/
 	}		
 	fclose(f);
 	printf("amongus %d \n", SIZE);
