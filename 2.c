@@ -5,66 +5,38 @@
 #define SIZE 1000
 
 int main(void) {
-	FILE *f;
-	char line[SIZE];
-	int sum = 0;
-	int i = 1;
-	int j, k;
+        FILE *f;
+        char line[SIZE], *p, h[1];
+        int sum = 0;
+        int i = 1;
+        int a, b, j, k;
 
-	struct ab{
-		int a;
-		int b;
-	};
+        f = fopen("2_input.txt", "r");
 
-	struct ab list[SIZE];
-
-	/* dynamic array */
-	typedef struct {
-		int *array;
-		size_t used;
-		size_t size;
-	} Array;
-
-	void initArray(Array *a, size_t initialSize) {
-		a->array = malloc(initialSize * sizeof(int));
-		a->used = 0;
-		a->size = initialSize;		
-	}
-
-	void insertArray(Array *a, int element) {
-		if (a->used == a->size) {
-			a->size *= 2;
-			a->array = realloc(a->array, a->size * sizeof(int));
-		}
-		a->array[a->used++] = element;
-	}
-
-	void freeArray(Array *a) {
-		free(a->array);
-		a->array = NULL;
-		a->used = a->size = 0;
-	}
-
-	f = fopen("2_input.txt", "r");
-
-	if (f == NULL) {
-		printf("Error opening file %p \n", f);
-		return 1;
-	}
+        if (f == NULL) {
+                printf("Error opening file %p \n", f);
+                return 1;
+        }
 
 
-	while (fgets(line, SIZE, f) != NULL && i <= 4) {
-		list[i].a = atoi(strtok(line, " ")); 
-		list[i].b = atoi(strtok(NULL, " "));
-		if(list[i].b != NULL) {printf("%d \n",list[i].b);} 
-		i++;
-		/*printf("%d \n", list[i].a);*/
-		/* printf("%s \n",line);*/
-	}		
-	fclose(f);
-	printf("amongus %d \n", SIZE);
+        while (fgets(line, SIZE, f) != NULL && i <= 4) {
+                a = atoi(strtok(line, " "));
+                for (j= 0;j <= 6; j++){
+                        p = strtok(NULL, " ");
+                        if (p) {
+                                strcpy(h,p);
+                                b = atoi(h);
+                                printf("%d\n",b);
+                        } else {
+                                break;
+                        }
+                }
+                i++;
+        }
+        fclose(f);
+        printf("amongus %d \n", SIZE);
 
-	/* printf("\n ANSWER: %d \n", sum); */
+        /* printf("\n ANSWER: %d \n", sum); */
 
-	return 0;
+        return 0;
 }
