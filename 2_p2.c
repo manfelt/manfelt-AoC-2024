@@ -9,10 +9,10 @@ int main(void) {
 	char line[SIZE], *p, h[1];
 	int sum = 0;
 	int i = 1;
-	int a, b, j, inc, dec, differ, safe, *ptr, dmp;
+	int a, b, j, inc, dec, eq, differ, safe, *ptr, dmp;
 
 	f = fopen("2_input.txt", "r");
-
+	/*f = fopen("examples.txt", "r");*/
 	if (f == NULL) {
 		printf("Error opening file %p \n", f);
 		return 1;
@@ -20,8 +20,9 @@ int main(void) {
 
 
 	while (fgets(line, SIZE, f) != NULL/* && i <= 50*/) {
+		printf(" l: %d  ",i);
 		printf(" %s", line);
-		inc = dec = 0;
+		inc = dec = eq = 0;
 		safe = dmp = 1;
 		a = atoi(strtok(line, " "));
 
@@ -36,24 +37,29 @@ int main(void) {
 				if (a > b && (a - b) <= 3) {
 					if (inc) {
 						safe = 0;
+						
 					}
 					dec = 1;
 					/* printf(" - "); */
 				} else if (a < b && (b - a ) <= 3) {
 					if (dec) {
 						safe = 0;
+						
 					}
 					inc = 1;
 					/* printf(" + "); */
 				} else {
+					eq = 1;
 					safe = 0;
 					/* printf(" = "); */
 				} 
 				/*	}*/
 				/* printf("b %d ",b); */
 				if (!safe && dmp) {
+					printf(" dmp ");
 					safe = 1;
 					dmp = 0;
+					/*inc = dec = */ eq = 0;
 				} else {
 					ptr = &b;
 					a = *ptr;
@@ -61,7 +67,7 @@ int main(void) {
 
 				if (!safe /* && !dmp */) {
 					sum++;
-					/* printf("!!!"); */
+					 printf(" unsafe ");
 					j = 7;
 					continue;
 				}
@@ -70,10 +76,10 @@ int main(void) {
 				break;
 			}
 		}
-		printf(" l: %d",i);
-		printf(" sum :%d ",sum);
-		i++;
 
+		i++;
+		printf(" sum :%d ",sum);
+		
 	}		
 	fclose(f);
 
