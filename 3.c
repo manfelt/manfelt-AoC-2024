@@ -7,7 +7,7 @@
 #define SIZE 1000
 #define TOKEN_DEFINE(token, str)
 
-TOKEN_DEFINE("TOKEN_NAME", "TOKEN,NAME")
+TOKEN_DEFINE("TOKEN_NAME", "TOKEN_NAME")
 TOKEN_DEFINE("TOKEN_OPAREN", "(")
 TOKEN_DEFINE("TOKEN_COMMA",  ",")
 TOKEN_DEFINE("TOKEN_CPAREN", ")")
@@ -18,8 +18,18 @@ char line[SIZE];
 int sum = 0;
 int cur,bol,row;
 
+struct Lex {
+	int cur;
+	int bol;
+	int row;
+	char source[SIZE];
+
+} Lexer = {0,0,0}; 
+
 char chop(char line) {
 	char *x;
+	/* if newline, increment row */
+	/* TODO add 'source' of index 'cur' to 'x' */
 	if (x == "\n") {
 		bol = cur;
 		row += 1;
@@ -38,15 +48,20 @@ char next_token() {
 	return token;
 }
 
-bool expect_token(char token) {
+void expect_token(struct Lex *Lexer) {
 	/* TODO */
-	if (!token) {
-		printf("ERROR: expected %s", TOKEN_NAME);
+
+	if (!Lexer->cur) {
+		printf("sorry, nothing");
+		
+	
 
 		}
 }
 
 int main(void) {
+	expect_token(&Lexer);
+
         f = fopen("3_input.txt", "r");
 
         if (f == NULL) {
