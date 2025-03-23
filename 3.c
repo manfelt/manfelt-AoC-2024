@@ -1,84 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 
-
-#define SIZE 1000
-#define TOKEN_DEFINE(token, str)
-
-TOKEN_DEFINE("TOKEN_NAME", "TOKEN_NAME")
-TOKEN_DEFINE("TOKEN_OPAREN", "(")
-TOKEN_DEFINE("TOKEN_COMMA",  ",")
-TOKEN_DEFINE("TOKEN_CPAREN", ")")
-TOKEN_DEFINE("TOKEN_MUL",  "mul")
- 
-FILE *f;
-char line[SIZE];
-int sum = 0;
-int cur,bol,row;
+char *string = "from()]mul(317,745)-+?;what()&{mul(67,323)select()~(+/}what()<mul(304,399)";
+char delim[] = ",";
+char *c, *p;
+int cur, num_a, num_b;
+// TODO char bol, row;
 
 struct Lex {
 	int cur;
-	int bol;
 	int row;
-	char source[SIZE];
+} Lexer = {0,0};
 
-} Lexer = {0,0,0}; 
+struct operands {
+	int a;
+	int b;
+}; 
 
-char chop(char line) {
-	char *x;
-	/* if newline, increment row */
-	/* TODO add 'source' of index 'cur' to 'x' */
-	if (x == "\n") {
-		bol = cur;
-		row += 1;
+int get_index(char* string, char c) {
+	char *e = strchr(string, c);
+	if (e == NULL) {
+		return -1;
 	}
-	return line;
+	return (int)(e - string);
 }
 
-char trim_left(char token) {
-	return token;
+void loop_str(char *s) {
+	for(int i = 0; s[i] != '\0'; i++) {
+		printf("s[%d] -> %c\n", i, s[i]);
+	}
 }
 
-char next_token() {
-	char token;
-	token = trim_left(token);
-
-	return token;
+char get_ch(int i, char *s) {
+	char result = s[i];
+	return result;
 }
 
-void expect_token(struct Lex *Lexer) {
-	/* TODO */
-
-	if (!Lexer->cur) {
-		printf("sorry, nothing");
-		
-	
-
-		}
+int expect_int(char i[]) {
+	printf("\n what %s",i);
+	// TODO strcmp() 
+	if (i=="1"||i=="2"||i=="3"||i=="4"||i=="5"||i=="6"||i=="7"||i=="8"||i=="9"||i=="0") {
+		return 1;
+	} else {
+		return 0;
+	}
 }
 
-int main(void) {
-	expect_token(&Lexer);
+int is_it_mul(int cur) {
+	if (1) {
+	return 1; 
+	}
+}
 
-        f = fopen("3_input.txt", "r");
+int main() {
+	//loop_str(string);
+	cur = get_index(string,'m');
+	printf("index : %d \n",cur);
+	c = get_ch(cur,string);
+	printf("%c\n",c);
+	char a[] = "2";
+	if (strcmp("a","ab")) {printf("asd");}
+	if (expect_int(a)) {
+		printf("\n It's number");
+	} else {
+		printf("\n It's not a number");
+	}
 
-        if (f == NULL) {
-                printf("Error opening file %p \n", f);
-                return 1;
-        }
-
-	int i;
-        while (fgets(line, SIZE, f) != NULL && i <= 4) {
-               /* a = atoi(strtok(line, " ")); */
-        }
-
-
-        fclose(f);
-        printf("amongus %d \n", SIZE);
-
-        /* printf("\n ANSWER: %d \n", sum); */
-
-        return 0;
+	return 0;
 }
