@@ -11,7 +11,7 @@ int cur, num_a, num_b;
 struct Lex {
 	int cur;
 	int row;
-} Lexer = {0,0};
+} Lexer;
 
 struct operands {
 	int a;
