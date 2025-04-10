@@ -7,7 +7,7 @@
 char *string = "from()]mul(317,745)-+?;what()&{mul(67,323)select()~(+/}what()<mul(304,399)";
 char delim[] = ",";
 char *c, *p;
-int cur, rowlen, *pcur;
+int cur, rowlen, *pcur, mul_flag;
 // TODO char bol, row;
 
 struct Lex {
@@ -39,6 +39,7 @@ char get_ch(int i, char *s) {
 	return result;
 }
 
+// TODO Gjør om til å motta character istedetfor string.
 int expect_int(char i[]) { 
 	if (strcmp(i,"1")==0||strcmp(i,"2")==0||strcmp(i,"3")==0||strcmp(i,"4")==0||strcmp(i,"5")==0||strcmp(i,"6")==0||strcmp(i,"7")==0||strcmp(i,"8")==0||strcmp(i,"9")==0||strcmp(i,"0")==0) {
 		return 1;
@@ -60,38 +61,33 @@ int main() {
 	//loop_str(string);
 	cur = get_index(string,'m');
 	printf("index : %d \n",cur);
-	//c = get_ch(cur,string);
-	c = string[4];
-	printf("\n %c", c);
+	//*c = get_ch(cur,string);
 
+
+        // m 109
+        // u 117 
+        // l 108
+        // ( 40 
+	// , 44
+	// ) 41
+
+	mul_flag = 0;
 
 	while (cur<rowlen) {
-		if (c==0) {
-			printf("\n m"); 
-			continue;
-		} else if (c=="u") {
-			printf("\n u");
-			continue;
-		} else if (c=="l") {
-			printf("\n l");
-			continue;
-		} else if (c=="(") {
-			printf ("\n (");
+		cur++;
+		if (string[cur]==40) {
+			if (cur >= 3 && string[cur-1]==108 && string[cur-2]==117 && string[cur-3]==109) {
+				mul_flag = 1;
+				printf("\n mul(");
+			};
 			continue; 
 		}
-		cur++;
+		if (mul_flag) {
+			printf("\n mul flag set");
+			if (expect_int(&string[cur])) {
+			}
+		}
 	} 
-	/*
-	if (strcmp(c,"m")==0) {
-		if (strcmp(c,"u")==0) {
-			if (strcmp(c,"l")==0) 
-				if (strcmp(c,"(")==0) {
-				
-				} else { break; } 
-			} else { break; }
-		} else { break; }
-	} else { break; }
-	*/	
 
 	char a[] = "2";
 	if (strcmp("a","ab")) {printf("asd");}
