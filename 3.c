@@ -41,6 +41,7 @@ char get_ch(int i, char *s) {
 
 // TODO Gjør om til å motta character istedetfor string.
 int expect_int(char i[]) { 
+	printf("/n running expect_int with %c",i);
 	if (strcmp(i,"1")==0||strcmp(i,"2")==0||strcmp(i,"3")==0||strcmp(i,"4")==0||strcmp(i,"5")==0||strcmp(i,"6")==0||strcmp(i,"7")==0||strcmp(i,"8")==0||strcmp(i,"9")==0||strcmp(i,"0")==0) {
 		return 1;
 	} else {
@@ -78,16 +79,29 @@ int main() {
 		if (string[cur]==40) {
 			if (cur >= 3 && string[cur-1]==108 && string[cur-2]==117 && string[cur-3]==109) {
 				mul_flag = 1;
-				printf("\n mul(");
+				printf("\n mul( found at cur %d", cur);
 			};
 			continue; 
 		}
 		if (mul_flag) {
-			printf("\n mul flag set");
-			if (expect_int(&string[cur])) {
+			printf("\n mul flag set, look for int or ','.");
+			char *tmp = string[cur];
+			if (expect_int(&tmp)) {
+				printf("\n %c <- this is an integer.",string[cur]);
 			}
 		}
 	} 
+	/*
+	if (strcmp(c,"m")==0) {
+		if (strcmp(c,"u")==0) {
+			if (strcmp(c,"l")==0) 
+				if (strcmp(c,"(")==0) {
+				
+				} else { break; } 
+			} else { break; }
+		} else { break; }
+	} else { break; }
+	*/	
 
 	char a[] = "2";
 	if (strcmp("a","ab")) {printf("asd");}
