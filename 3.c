@@ -41,7 +41,7 @@ char get_ch(int i, char *s) {
 
 // TODO Gjør om til å motta character istedetfor string.
 int expect_int(char i[]) { 
-	printf("/n running expect_int with %c",i);
+	printf("/n running expect_int with %s",i);
 	if (strcmp(i,"1")==0||strcmp(i,"2")==0||strcmp(i,"3")==0||strcmp(i,"4")==0||strcmp(i,"5")==0||strcmp(i,"6")==0||strcmp(i,"7")==0||strcmp(i,"8")==0||strcmp(i,"9")==0||strcmp(i,"0")==0) {
 		return 1;
 	} else {
@@ -88,6 +88,11 @@ int main() {
 			char *tmp = string[cur];
 			if (expect_int(&tmp)) {
 				printf("\n %c <- this is an integer.",string[cur]);
+				// TODO append number to member 'a' or 'b', both will set to  NULL if mul is incorrectly enclosed.
+			}
+			if (string[cur]==44) {
+				printf("\n %c <- this is a comma.",string[cur]);	
+				// TODO set flag for next member, if flag is already set, clear the members.
 			}
 		}
 	} 
