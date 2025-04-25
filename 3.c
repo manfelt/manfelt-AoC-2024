@@ -4,9 +4,9 @@
 
 #define SIZE 1000
 
-char *string = "from()]mul(317,745)-+?;what()&{mul(67,323)select()~(+/}what()<mul(304,399)";
-char delim[] = ",";
-char *c, *p;
+char *string = "from()]mul(317,745)-+?;what()&{mul(69,42,0)select()~(+/}what()<mul(304,399)";
+int delim_flag = 0;
+char *c, *p, a[4], b[4];
 int cur, rowlen, *pcur, mul_flag;
 // TODO char bol, row;
 
@@ -79,6 +79,7 @@ int main() {
 		if (string[cur]==40) {
 			if (cur >= 3 && string[cur-1]==108 && string[cur-2]==117 && string[cur-3]==109) {
 				mul_flag = 1;
+				//a = b = "0";
 				printf("\n mul( found at cur %d", cur);
 			};
 			continue; 
@@ -88,33 +89,29 @@ int main() {
 			char *tmp = string[cur];
 			if (expect_int(&tmp)) {
 				printf("\n %c <- this is an integer.",string[cur]);
-				// TODO append number to member 'a' or 'b', both will set to  NULL if mul is incorrectly enclosed.
+				if(!delim_flag) {
+					//strcat(a,string[cur]);
+					//printf("\n value of 'a': %s",a);
+				} else {
+					//strcat(b,string[cur]);
+					//printf("\n value of 'b': %s",b);
+				}		}
+			 else if (string[cur]==44) {
+				printf("\n %c  delimeter. Expecting next argument",string[cur]);
+				if (!delim_flag) {
+					delim_flag=1;
+				} else {
+					printf("\n unexpected token ',' at index %i.", cur);
+					mul_flag=0;
+				}
+			// TODO unset mul flag if ')', if neither ')' number or ',' erase a & b values.
 			}
-			if (string[cur]==44) {
-				printf("\n %c <- this is a comma.",string[cur]);	
-				// TODO set flag for next member, if flag is already set, clear the members.
+			 else if (string[cur]==41) {
+				printf("\n cparen encountered, close mul flag ");
+				delim_flag=0;
+				mul_flag=0;
 			}
 		}
 	} 
-	/*
-	if (strcmp(c,"m")==0) {
-		if (strcmp(c,"u")==0) {
-			if (strcmp(c,"l")==0) 
-				if (strcmp(c,"(")==0) {
-				
-				} else { break; } 
-			} else { break; }
-		} else { break; }
-	} else { break; }
-	*/	
-
-	char a[] = "2";
-	if (strcmp("a","ab")) {printf("asd");}
-	if (expect_int(a)) {
-		printf("\n It's number");
-	} else {
-		printf("\n It's not a number");
-	}
-
 	return 0;
 }
