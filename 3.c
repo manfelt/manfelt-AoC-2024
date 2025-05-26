@@ -6,7 +6,7 @@
 
 char *string = "from()]mul(317,745)-+?;what()&{mul(69,42,0)select()~(+/}what()<mul(304,399)";
 int delim_flag = 0;
-char *c, *p, a[4], b[4];
+char *c, *p;
 int cur, rowlen, *pcur, mul_flag;
 // TODO char bol, row;
 
@@ -14,6 +14,10 @@ struct Lex {
 	int cur;
 	int row;
 } Lexer = {0,0};
+
+struct str_val {
+	char c[20];
+};
 
 struct operands {
 	int a;
@@ -56,6 +60,15 @@ int is_it_mul(int cur) {
 	}
 }
 
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    // in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
 int main() {
 	struct operands op[SIZE];
 	rowlen = strlen(string);
@@ -73,25 +86,32 @@ int main() {
 	// ) 41
 
 	mul_flag = 0;
+	int inc = 0;
+	char *a = malloc(1 * sizeof(char));	
+
 
 	while (cur<rowlen) {
 		cur++;
 		if (string[cur]==40) {
 			if (cur >= 3 && string[cur-1]==108 && string[cur-2]==117 && string[cur-3]==109) {
 				mul_flag = 1;
-				//a = b = "0";
-				printf("\n mul( found at cur %d", cur);
+				//struct str_val a = {.c = "0"};
+				//struct str_val b = {.c = "0"};
+								printf("\n mul( found at cur %d", cur);
 			};
 			continue; 
 		}
 		if (mul_flag) {
+			
 			printf("\n mul flag set, look for int or ','.");
-			char *tmp = string[cur];
+			char tmp = string[cur];
+			//b = concat(&tmp, a);
 			if (expect_int(&tmp)) {
 				printf("\n %c <- this is an integer.",string[cur]);
 				if(!delim_flag) {
-					//strcat(a,string[cur]);
-					//printf("\n value of 'a': %s",a);
+					inc++;
+					strcat(a,&tmp);
+					printf("\n value of 'a': %s",a);
 				} else {
 					//strcat(b,string[cur]);
 					//printf("\n value of 'b': %s",b);
@@ -99,19 +119,25 @@ int main() {
 			 else if (string[cur]==44) {
 				printf("\n %c  delimeter. Expecting next argument",string[cur]);
 				if (!delim_flag) {
+					for (int i = 0; i > inc; i++) {
+						printf("\n USDHJFKLJS %c", string[cur-i]);
+					}
+					inc = 0;
 					delim_flag=1;
 				} else {
-					printf("\n unexpected token ',' at index %i.", cur);
+					printf("\n unexpected token ',' at index %i. Break", cur);
 					mul_flag=0;
+					delim_flag=0;
 				}
 			// TODO unset mul flag if ')', if neither ')' number or ',' erase a & b values.
 			}
 			 else if (string[cur]==41) {
-				printf("\n cparen encountered, close mul flag ");
+				printf("\n cparen encountered, close mul flag, store parameters as results for now");
 				delim_flag=0;
 				mul_flag=0;
 			}
 		}
 	} 
+	free(a);
 	return 0;
 }
