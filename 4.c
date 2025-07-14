@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define SIZE 1000
-#define WIDTH 140
-#define HEIGHT 140
+#define X 140
+#define Y 140
 
 FILE *f;
-char line[SIZE];
+char line[SIZE], matrix[X][Y];
 int res;
 
 
@@ -15,13 +16,12 @@ struct diagonal_mem {
 
 };
 
+int verify(char in, int pre) {
+	if(pre > 4) {pre = 0;}
 
-int scan_horizontal(char *line) {
-	int i = 0;
-	int result = 0;
-	int flag_lvl = 0;
-	while (i<WIDTH) {
-		switch (line[i])	{
+	int flag_lvl = pre;
+
+		switch (in)	{
 			case 88:
 				flag_lvl = 1;
 				break;
@@ -43,13 +43,57 @@ int scan_horizontal(char *line) {
 				if (flag_lvl != 3) {
 					flag_lvl = 0;
 				} else {
-					result++;
+					flag_lvl++;
 				}
 				break;
 		}
-		i++;
+	return flag_lvl;
+}
+
+int scan_horizontal(char mat[][Y], int n) {
+	printf("horizontal scan from y position: %i",n);
+	int flag = 0;
+	int result = 0;
+
+	for(int i=0;i<Y;i++) {
+		printf("%c \n",mat[n][i]);
+		flag = verify(mat[n][i],flag);
+		if (flag == 4) {
+			printf("FLAG %i \n",flag);
+			result++;
+
+		}
 	}
-	return result;
+	return result;	
+}
+
+int scan_vertical(char mat[][Y], int n) {
+	printf("vertical scan from x position: %i",n);
+	int flag = 0;
+	int result = 0;
+
+	for(int i=0;i<Y;i++) {
+		printf("%c \n",mat[i][n]);
+		flag = verify(mat[i][n],flag);
+		if (flag == 4) {
+			printf("FLAG %i \n",flag);
+			result++;
+		}
+	}
+	return result;	
+}
+
+
+void printPrincipalDiagonal(char mat[][Y], int n) {
+	printf("Principal Diagonal: \n");
+
+	for(int i=0;i<n;i++) {
+		for(int j=0;j<n;j++) {
+			if(i==j) {
+				printf("%i , ",mat[i][j]);
+			}
+		}
+	}
 }
 
 
@@ -62,6 +106,7 @@ int main (void) {
 	// A 65
 	// S 83
 
+	int i = 0;
 
 	f = fopen("4_input.txt", "r");
 
@@ -70,31 +115,23 @@ int main (void) {
 		return 1;
 	}	
 
-
+	
 	while (fgets(line, SIZE, f) != NULL) {
-		int rowlen = strlen(line);
-		int cur = 0;
 
-		int bob = scan_horizontal(line);
-
-		printf("\n result: %d", bob);
-
-		while (cur<rowlen) {
-			//printf("%c",line[cur]);
-
-			cur++;
-
+			// populate array matrix from file buffer.
+			for (int j=0;j<X;j++) {
+				matrix[i][j] = line[j];
+			}
+			i++;
 		}
 
+		char *a;
+		a = malloc(1 * sizeof(char));
+		
+		printPrincipalDiagonal(matrix,Y);
 
-		res = cur;
-
-
-	}
-	printf("\n%d",res);
-
-	// TODO reversj
-
+		scan_horizontal(matrix,1);	
+		
 
 	return 0;
 }
