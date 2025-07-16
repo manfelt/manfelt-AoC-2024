@@ -12,7 +12,7 @@ int res;
 
 
 struct diagonal_mem {
-	int x; 
+	int x;
 
 };
 
@@ -105,7 +105,7 @@ int scan_horizontal(char mat[][Y], int n) {
 			//		printf("REV FLAG %i \n",result);
 		}
 	}
-	return result;	
+	return result;
 }
 
 int scan_vertical(char mat[][Y], int n) {
@@ -120,16 +120,16 @@ int scan_vertical(char mat[][Y], int n) {
 		if (flag >= 4) {
 			flag = 0;
 			result++;
-		//	printf("FLAG %i \n",result);
+			//	printf("FLAG %i \n",result);
 		}
 		rev_flag = verify_reverse(mat[n][i],rev_flag);
 		if (rev_flag >= 4) {
 			rev_flag = 0;
 			result++;
-		//	printf("REV FLAG %i \n",result);
+			//	printf("REV FLAG %i \n",result);
 		}
 	}
-	return result;	
+	return result;
 }
 
 int scan_up_left_diag(char mat[][Y], int x, int y) {
@@ -140,7 +140,7 @@ int scan_up_left_diag(char mat[][Y], int x, int y) {
 	int n = Y;
 	//	if (x > y) {
 	//		n = X-x;
-	//	} else {n = Y-y;} 
+	//	} else {n = Y-y;}
 	printf("\n BEG\n");
 
 	if (n > 3) {
@@ -156,7 +156,7 @@ int scan_up_left_diag(char mat[][Y], int x, int y) {
 						flag = 0;
 						result++;
 						printf("FLAG %i \n",result);
-					}	
+					}
 
 					rev_flag = verify_reverse(mat[j][i],rev_flag);
 					if (rev_flag >= 4) {
@@ -180,7 +180,7 @@ int scan_up_right_diag(char mat[][Y], int x, int y) {
 	int n = Y;
 	//	if (x > y) {
 	//		n = X-x;
-	//	} else {n = Y-y;} 
+	//	} else {n = Y-y;}
 
 	if (n > 3) {
 		for(int i=0;i<n;i++) {
@@ -195,7 +195,7 @@ int scan_up_right_diag(char mat[][Y], int x, int y) {
 						flag = 0;
 						result++;
 						printf("FLAG %i \n",result);
-					}	
+					}
 
 					rev_flag = verify_reverse(mat[i][j],rev_flag);
 					if (rev_flag >= 4) {
@@ -210,15 +210,15 @@ int scan_up_right_diag(char mat[][Y], int x, int y) {
 	return result;
 }
 
-int main_search() {
+int main_search(char matrix[][Y]) {
 	int result = 0;
 	int i = 0;
 
-	while (i<140) {
+	while (i<139) {
 		result += scan_vertical(matrix,i);
 		result += scan_horizontal(matrix,i);
 		i++;
-	} 
+	}
 
 	i = -136;
 
@@ -246,19 +246,19 @@ int main_search() {
 
 int main (void) {
 
-	// X 88 
+	// X 88
 	// M 77
 	// A 65
 	// S 83
 
-	/* 
-	   |0|1|2|..|140|x
-	   |1|
-	   |2|
-	   |..|
-	   |140|
-	   y
-	   */
+	/*
+	 *   |0|1|2|..|140|x
+	 *   |1|
+	 *   |2|
+	 *   |..|
+	 *   |140|
+	 *   y
+	 */
 
 	int j = 0;
 
@@ -267,7 +267,7 @@ int main (void) {
 	if (f == NULL) {
 		printf("Error opening file %p \n", f);
 		return 1;
-	}	
+	}
 
 
 	while (fgets(line, SIZE, f) != NULL) {
@@ -284,8 +284,8 @@ int main (void) {
 
 
 	int result = 0;
-		result = main_search(*matrix);
-		printf("\n%i\n",result);
+	result = main_search(matrix);
+	printf("\n%i\n",result);
 
 	return 0;
 }
